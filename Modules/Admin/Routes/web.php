@@ -17,8 +17,15 @@ Route::group(['middleware' => ['auth:web', 'info-web'], 'prefix' => 'admin'], fu
     Route::resource('posts', 'PostsController');
     Route::resource('news', 'NewsController');
     Route::resource('pages', 'PagesController');
-    Route::resource('categories', 'CategoriesController');
+    Route::group(['prefix' => 'categories'], function() {
+        Route::get('/post', 'CategoriesController@viewPost')->name('categories.post.index');
+        Route::get('/news', 'CategoriesController@viewNews')->name('categories.news.index');
+        Route::get('/create/{type}', 'CategoriesController@create')->name('categories.create');
+    });
+    Route::resource('categories', 'CategoriesController', ['except' => ['create']]);
+
     Route::resource('menus', 'MenusController', ['except' => ['index', 'create', 'edit']]);
+
     Route::get('view-menus/{menu?}', 'MenusController@view')->name('menus.index');
     Route::get('menus/create/{menu?}', 'MenusController@create')->name('menus.create');
     Route::get('menus/{id}/edit/{menu?}', 'MenusController@edit')->name('menus.edit');
@@ -42,5 +49,5 @@ Route::group(['middleware' => ['auth:web', 'info-web'], 'prefix' => 'admin'], fu
     });
     Route::resource('users', 'UsersController');
 
-    Route::resource('media', 'MediaController');
+    Route::resource('contacts', 'ContactsController')->names('contact');
 });

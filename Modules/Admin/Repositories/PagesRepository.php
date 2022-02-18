@@ -3,8 +3,8 @@
 namespace Modules\Admin\Repositories;
 
 use Illuminate\Support\Facades\DB;
-use Modules\Admin\Entities\PagesModel;
 use Modules\Admin\Entities\PostImagesModel;
+use Modules\Admin\Entities\PostsModel;
 use Modules\Admin\Forms\PagesForm;
 use Modules\Admin\Grids\PagesGrid;
 use Vnnit\Core\Support\FileManagementService;
@@ -15,6 +15,8 @@ class PagesRepository extends BasePostsRepository
 
     protected $type = 'page';
 
+    protected $imageColumnName = 'post_image';
+
     protected $presenterClass = PagesGrid::class;
     /**
      * Specify Model class name
@@ -23,7 +25,7 @@ class PagesRepository extends BasePostsRepository
      */
     public function model()
     {
-        return PagesModel::class;
+        return PostsModel::class;
     }
 
     /**
@@ -48,46 +50,22 @@ class PagesRepository extends BasePostsRepository
 
     public function create(array $attributes)
     {
-        $attributes['post_type'] = 'page';
+        $attributes['post_type'] = $this->type;
         $attributes['post_date'] = now();
         if (blank($attributes['post_link']))
             $attributes['post_link'] = str_slug($attributes['post_title']);
         $attributes['post_status'] = 1;
-        $attributes['post_author'] = user_get('name');
+        $attributes['author_id'] = user_get('id');
 
-        return DB::transaction(function () use($attributes) {
-            $result = parent::create($attributes);
-
-            $dataImageNew = $this->uploadFile($attributes, 'post_image');
-            if ($dataImageNew) {
-                $data['post_id'] = $result->id;
-                $data['post_image'] = $dataImageNew;
-                resolve(PostImagesRepository::class)->updateOrCreate($data, ['post_id' => $result->id]);
-            }
-
-            return $result;
-        });
+        return parent::create($attributes);
     }
 
     public function update(array $attributes, $id)
     {
-        $data = PostImagesModel::find($id, ['post_image']);
-        $dataImageOld = $data['post_image'];
-
+        $attributes['author_id'] = user_get('id');
         if (blank($attributes['post_link']))
             $attributes['post_link'] = str_slug($attributes['post_title']);
 
-        return DB::transaction(function () use($attributes, $dataImageOld, $id) {
-            $result = parent::update($attributes, $id);
-
-            $dataImageNew = $this->uploadFile($attributes, 'post_image', $dataImageOld);
-            if ($dataImageNew) {
-                $dataImage['post_id'] = $result->id;
-                $dataImage['post_image'] = $dataImageNew;
-                resolve(PostImagesRepository::class)->updateOrCreate($dataImage, ['post_id' => $result->id]);
-            }
-
-            return $result;
-        });
+        return parent::update($attributes, $id);
     }
 }

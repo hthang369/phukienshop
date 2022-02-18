@@ -20,9 +20,15 @@ class SettingController extends CoreController
         $this->setRouteName('setting');
         $this->setPathView([
             'edit'  => 'setting::index',
+            'update' => 'setting.index',
             // 'create' => 'admin::configs.slide_modal',
             // 'show' => 'admin::configs.slide_modal'
         ]);
+    }
+
+    public function view($id = null)
+    {
+        return $this->index();
     }
 
     /**

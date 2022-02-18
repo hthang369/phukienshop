@@ -60,6 +60,19 @@ class MenusRepository extends AdminBaseRepository
         return Menus::getSortableMenus($menus);
     }
 
+    public function getDataByType($type)
+    {
+        return $this->model->where('menu_type', $type)->defaultOrder()->get([
+            'id',
+            'menu_name as title',
+            'menu_link as link',
+            'menu_icon as icon',
+            'parent_id',
+            'menu_lft',
+            'menu_rgt'
+        ])->toTree();
+    }
+
     public function updateSort(array $attributes, $id)
     {
         foreach ($attributes as $item) {

@@ -12,7 +12,7 @@
     $widgetGroup = data_get($data, 'data.group');
     $dataGroup = $widgetText->keyBy('key');
 @endphp
-<div class="card">
+{{-- <div class="card">
     <h4 class="card-header bg-primary">Preview</h4>
     <div class="card-body px-1">
         @foreach ($widgetGroup as $item)
@@ -39,7 +39,7 @@
     <div class="card-footer">
         {!! Form::button('Preview', ['class' => 'btn btn-primary btn-sm']) !!}
     </div>
-</div>
+</div> --}}
 <x-card-group size="md" size-cols="3">
     @foreach ($widgetText as $header => $item)
     <div class="col">
@@ -74,7 +74,8 @@
             </div>
         </div>
         <div class="card-footer">
-            {!! Form::button('Save', ['class' => 'btn btn-primary btn-sm btn-save', 'data-loading' => __('admin::common.loading')]) !!}
+            {!! Form::btButton('Save', 'primary', ['class' => 'btn-sm btn-save', 'data-loading' => __('admin::common.loading')], 'edit', 'widget') !!}
+            {!! Form::btButton('Delete', 'danger', ['class' => 'btn-sm btn-remove', 'data-loading' => __('admin::common.loading')], 'edit', 'widget') !!}
         </div>
         </form>
     </div>
@@ -105,6 +106,14 @@
         $('.btn-save').click(function(e) {
             let form = _.head($(this).parents('form'));
             $api.put($(form).attr('action'), JSON.stringify($(form).serializeObject()), {
+                pjaxContainer: '#'+form.id,
+                targetLoading: this
+            })
+        });
+        $('.btn-remove').click(function(e) {
+            let form = _.head($(this).parents('form'));
+            $api.delete($(form).attr('action'), JSON.stringify($(form).serializeObject()), {
+                contentType: 'application/json',
                 pjaxContainer: '#'+form.id,
                 targetLoading: this
             })

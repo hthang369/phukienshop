@@ -32,7 +32,7 @@ class SlidesGrid extends BaseGrid
                 'key' => 'advertise_image',
                 'label' => trans('admin::adverties.advertise_image'),
                 'cell' => function($itemData) {
-                    return sprintf('<img src="%s" class="img-responsive" alt = "%s" width="80">', asset('storage/images/'.$itemData['advertise_image']), 'alternative');
+                    return sprintf('<img src="%s" class="img-responsive" alt = "%s" width="80">', asset('public/storage/images/'.$itemData['advertise_image']), 'alternative');
                 }
             ],
 		];

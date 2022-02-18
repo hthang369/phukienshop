@@ -14,7 +14,8 @@ return [
 
         'navbar_bt4' => \Modules\Home\Presenters\NavbarBootstrap4Presenter::class,
         'slidebar_bt4' => \Modules\Admin\Presenters\SlideBarBootstrap4Presenter::class,
-        'nested_sortable_bt4' => \Modules\Admin\Presenters\NestedSortableBootstrap4Presenter::class
+        'nested_sortable_bt4' => \Modules\Admin\Presenters\NestedSortableBootstrap4Presenter::class,
+        'sidebar_bt4' => \Modules\Home\Presenters\SidebarBootstrap4Presenter::class
     ],
 
     'ordering' => false,

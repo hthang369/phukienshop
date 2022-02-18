@@ -4,31 +4,43 @@
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
         @include('home::partial.google')
-        <title>@yield('header_title', $webName)</title>
-        <link rel="shortcut icon" type="image/png" href="{{ asset("storage/images/$webFavicon") }}">
-        <link href="{{ asset('/css/app.css') }}" rel="stylesheet">
-        <link href="{{ asset('/css/font-awesome.min.css') }}" rel="stylesheet">
-        <link href="{{ asset('/css/home_app.css') }}" rel="stylesheet">
+        <title>@yield('header_title', data_get($infoSettings, 'info.web_name'))</title>
+        @include('home::partial.seo-meta')
+        @include('home::partial.link')
+        @stack('styles')
         @stack('script_gg')
     </head>
     <body>
         @stack('no_script')
 
-        <section class="container-fluid">
+        <section>
             @include('home::partial.header')
 
-            @yield('content')
+            <section class="d-block container-xl">
+                <div class="row">
+                    @include('home::partial.left')
 
-            @include('home::partial.right')
+                    <div id="iContent" class="col-md-9 col-sm-9 col-12 mt-2 pl-0 pr-0">
+                        <x-card bodyClass="p-0">
+                            @include('home::partial.menuside')
+                        </x-card>
+                        <div class="card mt-2">
+                            @yield('content')
+                        </div>
+                    </div>
+                </div>
+            </section>
 
             @include('home::partial.footer')
 
             @include('home::partial.back_to_top')
         </section>
 
-        <script src="{{ asset('js/app.js') }}"></script>
-        <script src="{{ asset('js/jquery.validate.min.js') }}"></script>
-        <script src="{{ asset('js/main.js') }}"></script>
+        <script src="{{ asset('public/js/app.js') }}"></script>
+        <script src="{{ asset('public/js/jquery.validate.min.js') }}"></script>
+        <script src="{{ asset('public/js/main.js') }}"></script>
+        @stack('scripts')
     </body>
 </html>

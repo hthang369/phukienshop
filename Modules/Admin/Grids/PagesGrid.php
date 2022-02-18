@@ -28,15 +28,6 @@ class PagesGrid extends BaseGrid
                 'label' => trans('admin::posts.post_title')
             ],
             [
-                'key' => 'category_id',
-                'label' => trans('admin::posts.category_id'),
-                'lookup' => [
-                    'dataSource' => CategoriesModel::get(['category_name', 'id'])->toArray(),
-                    'valueExpr' => 'id',
-                    'displayExpr' => 'category_name'
-                ],
-            ],
-            [
                 'key' => 'post_excerpt',
                 'label' => trans('admin::posts.post_excerpt'),
             ],

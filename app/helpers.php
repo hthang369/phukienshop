@@ -1,30 +1,16 @@
 <?php
 
-use App\Helpers\Attributes;
-use Illuminate\Support\Facades\Auth;
+if (!function_exists('format_currency')) {
+    function format_currency($number, $currency = 'đ') {
+        return number_format($number, 0, ',', '.').' '.$currency;
+    }
+}
 
-if (!function_exists('attributes_get')) {
-    function attributes_get($items, $excludes = []) {
-        return Attributes::get($items, $excludes);
-    }
-}
-if (!function_exists('user_get')) {
-    function user_get($key = null)
-    {
-        $user = null;
-        if (Auth::check()) {
-            $user = Auth::user();
-        }
-        if (!is_null($key) && !is_null($user)) {
-            return object_get($user, $key);
-        }
-        return $user;
-    }
-}
-if (!function_exists('user_can')) {
-    function user_can($action)
-    {
-        return (Auth::check() && Auth::user()->can($action));
+if (!function_exists('vnn_data_get')) {
+    function vnn_data_get($data, $key, $keyDefault) {
+        $result = data_get($data, $key);
+
+        return blank($result) ? data_get($data, $keyDefault) : $result;
     }
 }
 ?>

@@ -2,21 +2,15 @@
 
 namespace App\Providers;
 
-use Laka\Core\Support\QueryLogger;
-use App\Support\CommonHelper;
+use App\Services\CommonService;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\ServiceProvider;
+use Vnnit\Core\BaseServiceProvider;
 
-class AppServiceProvider extends ServiceProvider
+class AppServiceProvider extends BaseServiceProvider
 {
-    /**
-     * Register any application services.
-     *
-     * @return void
-     */
-    public function register()
-    {
-    }
+    protected $facades = [
+        'common-service' => CommonService::class,
+    ];
 
     /**
      * Bootstrap any application services.

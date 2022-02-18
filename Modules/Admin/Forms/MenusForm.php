@@ -14,6 +14,7 @@ class MenusForm extends Form
         $menu_type = request('type');
         $this
             ->add('menu_name', Field::TEXT)
+            ->add('menu_link', Field::TEXT)
             ->add('parent_id', Field::SELECT, [
                 'choices' => MenusModel::where('menu_type', $menu_type)->pluck('menu_name', 'id')->toArray(),
                 'selected' => data_get($this->getModel(), 'parent_id'),

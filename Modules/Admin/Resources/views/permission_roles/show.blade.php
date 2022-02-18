@@ -18,12 +18,13 @@ $(document).ready(function() {
         e.preventDefault();
         let props = [];
         let values = [];
-        _.forEach($('#permissionRole-grid').find('input[type=checkbox]'), function(item) {
+        _.forEach($('#permissionRole-grid input[type=checkbox]'), function(item) {
             props.push($(item).attr('name'));
             values.push($(item).is(':checked'));
         });
         let data = JSON.stringify(_.zipObject(props, values))
         $api.put('{{route("role_has_permissions.update", $data["role_id"])}}', data, {
+            contentType: 'application/json',
             'targetLoading': '#btn-save',
             'pjaxContainer': '#permissionRole-grid'
         });

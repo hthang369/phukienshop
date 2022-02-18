@@ -15,6 +15,9 @@ return [
     'widget' => 'Widget',
     'sort' => 'Sắp xếp menu',
     'role_has_permissions' => 'Cấp quyền',
+    'contact' => 'Liên hệ',
+    'manager_posts' => 'Quản lý bài viết',
+    'manager_news' => 'Quản lý tin tức',
 
     'menu_name' => 'Tên menu',
     'menu_link' => 'Link menu',
@@ -45,6 +48,7 @@ return [
         'users' => 'Users',
         'dashboard' => 'Bảng điều khiển',
         'media' => 'Quản lý tập tin',
-        'role_has_permissions' => 'Cấp quyền'
+        'role_has_permissions' => 'Cấp quyền',
+        'contact' => 'Liên hệ',
     ]
 ];

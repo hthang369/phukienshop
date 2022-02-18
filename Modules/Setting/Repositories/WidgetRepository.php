@@ -6,7 +6,7 @@ use Illuminate\Support\Facades\DB;
 use Modules\Setting\Entities\SettingDetailModel;
 use Modules\Setting\Entities\SettingModel;
 
-class WidgetRepository extends SettingBaseRepository
+class WidgetRepository extends WidgetBaseRepository
 {
 
     /**
@@ -42,7 +42,7 @@ class WidgetRepository extends SettingBaseRepository
         });
     }
 
-    public function create($attributes)
+    protected function createGroup($attributes)
     {
         DB::transaction(function () use ($attributes) {
             $result = resolve(SettingModel::class)->findOrCreate('widget_config');
@@ -64,6 +64,20 @@ class WidgetRepository extends SettingBaseRepository
         });
     }
 
+    public function create($attributes)
+    {
+        $settingId = $this->model::getSettingId('widget');
+        $data = [
+            'setting_id' => $settingId,
+            'key' => $attributes['type'].'_'.$attributes['name'],
+            'value' => json_encode(['title' => '', 'text' => ''])
+        ];
+        SettingDetailModel::unguard();
+        $result = parent::create($data);
+        SettingDetailModel::reguard();
+        return $result;
+    }
+
     public function update($attributes, $id)
     {
         $attrData = array_except($attributes, ['widget_group', '_token']);
@@ -71,16 +85,31 @@ class WidgetRepository extends SettingBaseRepository
         $data = collect();
         DB::transaction(function () use ($attrData, $id, $widget_group, &$data) {
             $group = json_decode(static::getDetail('widget', $widget_group), true);
-            $group = array_map(function ($item) use ($id) {
-                return starts_with($item, 'slot') ? $id : $item;
-            }, $group);
+            if (!is_null($group)) {
+                $group = array_map(function ($item) use ($id) {
+                    return starts_with($item, 'slot') ? $id : $item;
+                }, $group);
+            }
             $data->push(parent::update([
                 $id => json_encode($attrData)
             ], 'widget'));
-            $data->push(parent::update([
-                $widget_group => json_encode($group)
-            ], 'widget'));
+            if (!is_null($group)) {
+                $data->push(parent::update([
+                    $widget_group => json_encode($group)
+                ], 'widget'));
+            }
         });
         return $data;
+    }
+
+    public function delete($id)
+    {
+        $results = $this->model->where('value', 'like', "%{$id}%")->get();
+        foreach($results as $item) {
+            $value = array_except(array_flip(json_decode($item->value)), $id);
+            $item->value = json_encode(array_flip($value));
+            $item->save();
+        }
+        return parent::deleteKey($id);
     }
 }

@@ -25,7 +25,6 @@ class WidgetController extends CoreController
             'index' => 'setting::widgets.widget',
             'edit'  => 'setting::widget',
             'create' => 'setting::widgets.create',
-            'update' => 'widget.update',
             // 'show' => 'admin::configs.slide_modal'
         ]);
     }

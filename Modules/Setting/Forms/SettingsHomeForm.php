@@ -30,7 +30,7 @@ class SettingsHomeForm extends Form
         } else {
             $this->add('web_favicon', Field::PICTURE, [
                 'label' => trans('setting::configs.web_favicon'),
-                'url' => 'storage/images/',
+                'url' => 'public/storage/images/',
                 'width' => '150',
                 'wrapper' => ['inline' => true],
                 'label_attr' => ['class' => ['col-4']],
@@ -38,7 +38,7 @@ class SettingsHomeForm extends Form
             ]);
             $this->add('web_logo', Field::PICTURE, [
                 'label' => trans('setting::configs.web_logo'),
-                'url' => 'storage/images/',
+                'url' => 'public/storage/images/',
                 'width' => '150',
                 'wrapper' => ['inline' => true],
                 'label_attr' => ['class' => ['col-4']],
@@ -46,7 +46,7 @@ class SettingsHomeForm extends Form
             ]);
             $this->add('web_banner', Field::PICTURE, [
                 'label' => trans('setting::configs.web_banner'),
-                'url' => 'storage/images/',
+                'url' => 'public/storage/images/',
                 'width' => '150',
                 'wrapper' => ['inline' => true],
                 'label_attr' => ['class' => ['col-4']],

@@ -1,7 +1,7 @@
 @extends('admin::layouts.master')
 
 @section('content')
-{!! $data['grid'] !!}
+{!! $grid !!}
 @endsection
 
 @section('scripts')

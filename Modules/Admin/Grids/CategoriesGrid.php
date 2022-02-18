@@ -13,6 +13,7 @@ class CategoriesGrid extends BaseGrid
      */
     protected $name = 'Categories';
     // protected $indexColumnOptions = ['visible' => false];
+    protected $except = ['category_type'];
     /**
     * Set the columns to be displayed.
     *
@@ -25,7 +26,11 @@ class CategoriesGrid extends BaseGrid
             // "parent_name",
             [
                 'key' => 'category_name',
-                'label' => trans('admin::categories.category_name')
+                'label' => trans('admin::categories.category_name'),
+                'cell' => function($itemData) {
+                    return str_repeat('-- ', $itemData['depth']).$itemData['category_name'];
+                    // return StatusType::getStatusType($itemData['category_status']);
+                }
             ],
             [
                 'key' => 'category_link',
@@ -39,5 +44,10 @@ class CategoriesGrid extends BaseGrid
                 }
             ]
 		];
+    }
+
+    protected function getCreareUrl()
+    {
+        return route($this->getSectionCode().'.create', ['type' => request('category_type'),'ref' => $this->getId()]);
     }
 }

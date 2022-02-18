@@ -16,36 +16,12 @@ class HomeController extends BaseController
     protected $permissionActions = [
         'index' => 'public',
         'show' => 'public',
-        'showPost' => 'public',
-        'showPostDetail' => 'public',
         'sendMail' => 'public'
     ];
-
-    protected $data;
-    protected $allSetting;
 
     public function __construct(HomeRepository $repository, HomeValidator $validator, HomeResponse $response)
     {
         parent::__construct($repository, $validator, $response);
-
-        $menus = resolve(HomeServices::class)->getHeaderMenus();
-        $footerMenu = resolve(HomeServices::class)->getFooterMenus();
-        $footerOurMenu = resolve(HomeServices::class)->getFooterOurMenus();
-
-        $this->allSetting = Setting::getAllSetting();
-        $webName = data_get($this->allSetting, 'info.web_name');
-        $webAddess = data_get($this->allSetting, 'info.web_address');
-        $webPhone = data_get($this->allSetting, 'info.web_phone');
-        $webEmail = data_get($this->allSetting, 'info.web_email');
-
-        $webFavicon = data_get($this->allSetting, 'home.web_favicon');
-        $webLogo = data_get($this->allSetting, 'home.web_logo');
-
-        $headerSocial = data_get($this->allSetting, 'widget.text_header_social');
-        $footerSocial = data_get($this->allSetting, 'widget.text_footer_social');
-        $topHeader = data_get($this->allSetting, 'widget.text_top_herder');
-
-        $this->data = compact('menus', 'footerMenu', 'footerOurMenu', 'webName', 'webAddess', 'webPhone', 'webEmail', 'webFavicon', 'webLogo', 'headerSocial', 'footerSocial', 'topHeader');
     }
 
     /**
@@ -54,9 +30,8 @@ class HomeController extends BaseController
      */
     public function index()
     {
-        $slides = $this->repository->getAllSlide();
-        $products = $this->repository->getHomeProducts();
-        return view('home::index', array_merge($this->data, compact('slides', 'products')));
+        $data = $this->repository->show('/');
+        return $this->response->data(request(), ['result' => $data['data']], 'home::index');
     }
 
     /**
@@ -67,31 +42,20 @@ class HomeController extends BaseController
     public function show($id)
     {
         $base = $this->repository->show($id);
+        if (!array_has($base, 'data.ob_desception')) {
+            data_set($base, 'data.ob_desception', Setting::get('info', 'ob_desception'));
+        }
 
         $viewName = $base['view_name'];
         if (blank($viewName)) $viewName = 'show';
-        $this->data['mapInfo'] = data_get($this->allSetting, 'map.web_map');
 
-        return view("home::$viewName", array_merge($this->data, $base['data']));
+        return $this->response->data(request(), ['result' => $base['data']], "home::{$viewName}");
     }
 
-    public function showPost($id)
+    public function sendMail(Request $request)
     {
-        $base = $this->repository->findPostCategory($id);
+        $base = $this->repository->sendMail($request->all());
 
-        $viewName = 'category';
-        $this->data['mapInfo'] = data_get($this->allSetting, 'map.web_map');
-
-        return view("home::$viewName", array_merge($this->data, $base));
-    }
-
-    public function showPostDetail($id)
-    {
-        $base = $this->repository->findPost($id);
-
-        $viewName = 'show';
-        $this->data['mapInfo'] = data_get($this->allSetting, 'map.web_map');
-
-        return view("home::$viewName", array_merge($this->data, $base));
+        return $this->response->created($request, $base);
     }
 }

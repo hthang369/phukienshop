@@ -1,45 +1,22 @@
-<footer id="footer">
-    <div class="footer-top">
-      <div class="container">
-        <div class="row">
-          <div class="col-lg-3 col-md-6">
-            <div class="footer-info">
-              <h3>{{$webName}}</h3>
-              <p> {{$webAddess}}<br>
-                <strong>Phone:</strong> {{ $webPhone }}<br>
-                <strong>Email:</strong> {{ $webEmail }}<br>
-              </p>
-              <div class="social-links mt-3">
-                {!! $footerSocial->text !!}
-              </div>
+<footer class="mt-2 bg-dark">
+    <div id="iFooter">
+        <div class="container-xl pt-4">
+            <div class="row">
+                <div class="col-md-4 col-sm-6 col-12 text-white">
+                    @widget('text_footer_info')
+                </div>
+                <div class="col-md-4 col-sm-6 col-12">
+                    {!! $footerMenu !!}
+
+                    @widget('text_copyright')
+                </div>
+                <div class="col-md-3 col-sm-12">
+                    @widget('text_ournews')
+                </div>
             </div>
-          </div>
-
-          <div class="col-lg-2 col-md-6 col-6 footer-links">
-            <h4>Useful Links</h4>
-            {!! $footerMenu !!}
-          </div>
-
-          <div class="col-lg-3 col-md-6 col-6 footer-links">
-            <h4>Our Services</h4>
-            {!! $footerOurMenu !!}
-          </div>
-
-          <div class="col-lg-4 col-md-6 footer-newsletter">
-            <h4>@widget('text_ournews', 'title')</h4>
-            <div class="widget_content">@widget('text_ournews')</div>
-          </div>
-
         </div>
-      </div>
     </div>
-
-    <div class="container text-center">
-      <div class="copyright">
-        @widget('text_copyright')
-      </div>
-      <div class="credits">
-          @widget('text_footer')
-      </div>
-    </div>
-  </footer>
+</footer>
+<div id="lkw" class="text-center bg-secondary">
+    @widget('text_footer')
+</div>

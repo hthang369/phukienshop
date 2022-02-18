@@ -2,7 +2,7 @@
 
 namespace Modules\Setting\Forms;
 
-use Kris\LaravelFormBuilder\Form;
+use Vnnit\Core\Forms\Form;
 
 class WidgetForm extends Form
 {

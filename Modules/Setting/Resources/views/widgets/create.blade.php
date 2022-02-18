@@ -9,11 +9,11 @@
 @section('content')
     <nav class="nav">
         <span class="nav-link">Add widgets</span>
-        {!! link_to_route('widget.new', 'Add Widget Text', ['text'], ['class' => 'nav-link']) !!}
+        {!! link_to_route('widget.new', 'Add Widget Group', ['group'], ['class' => 'nav-link']) !!}
     </nav>
     <div class="row">
         <div class="col-4">
-        {!! $form !!}
+        {!! $data['form'] !!}
         </div>
     </div>
 @endsection

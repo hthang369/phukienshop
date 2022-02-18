@@ -22,6 +22,7 @@ return [
         ['name'=> 'media', 'code' => 'media', 'url' => '', 'api' => 'media'],
         ['name'=> 'users', 'code' => 'users', 'url' => '', 'api' => 'users'],
         ['name'=> 'widget', 'code' => 'widget', 'url' => '', 'api' => 'widget'],
+        ['name'=> 'contact', 'code' => 'contact', 'url' => '', 'api' => 'contact'],
     ],
     /*
      * permission actions
@@ -45,9 +46,10 @@ return [
         'slides'                   => ['public', 'view', 'add', 'edit', 'delete'],
         'advertises'               => ['public', 'view', 'add', 'edit', 'delete'],
         'role'                     => ['view', 'add', 'edit', 'delete'],
-        'role_has_permissions'     => ['view', 'add', 'edit', 'delete'],
+        'role_has_permissions'     => ['view', 'edit'],
         'users'                    => ['view', 'add', 'edit', 'delete'],
-        'widget'                   => ['view', 'add', 'edit'],
+        'widget'                   => ['view', 'add', 'edit', 'delete'],
+        'contact'                  => ['view', 'edit', 'delete'],
     ],
 
     'custom_section_action' => [
@@ -73,10 +75,10 @@ return [
      */
     'roles' => [
         //important !! index 0 need be System Admin, will set all permissions by default
-        ['level' => 'L1', 'name' => 'System Admin', 'description' => '', 'guard_name'=> 'web', 'roles_status_prop' => 1],
-        ['level' => 'L2', 'name' => 'Admin', 'description' => '', 'guard_name'=> 'web', 'roles_status_prop' => 1],
-        ['level' => 'L3', 'name' => 'Manager', 'description' => '', 'guard_name'=> 'web', 'roles_status_prop' => 1],
-        ['level' => 'L4', 'name' => 'Staff', 'description' => '', 'guard_name'=> 'web', 'roles_status_prop' => 1],
+        ['level' => 'L1', 'name' => 'System Admin', 'description' => '', 'guard_name'=> 'web'],
+        ['level' => 'L2', 'name' => 'Admin', 'description' => '', 'guard_name'=> 'web'],
+        ['level' => 'L3', 'name' => 'Manager', 'description' => '', 'guard_name'=> 'web'],
+        ['level' => 'L4', 'name' => 'Staff', 'description' => '', 'guard_name'=> 'web'],
     ],
 
     'models' => [

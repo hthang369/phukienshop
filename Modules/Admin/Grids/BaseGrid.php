@@ -18,6 +18,9 @@ class BaseGrid extends BaseGridPresenter
             'renderCustom' => '',
             'mergeClass' => ['grid-row-button', 'show_modal_form']
         ]);
+        $this->editRowButton('detail', [
+            'mergeClass' => ['grid-row-button', 'show_modal_form']
+        ]);
     }
 
     protected function visibleDetail($item)

@@ -20,6 +20,7 @@ class CreateSectionsTable extends Migration
             $table->string('url')->nullable();
             $table->string('api');
             $table->string('description')->nullable();
+            $table->unsignedInteger('parent_id')->nullable();
             $table->timestamps();
         });
     }
