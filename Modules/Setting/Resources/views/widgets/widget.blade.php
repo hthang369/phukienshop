@@ -3,7 +3,9 @@
 @section('content_header')
 <div class="d-flex align-items-center">
     <h3 class="mb-0 mr-3 d-inline">Widgets</h3>
-    {!! link_to_route('widget.create', 'Add', [], ['class' => 'btn btn-primary btn-sm']) !!}
+    @can("add_widget")
+        {!! link_to_route('widget.create', 'Add', [], ['class' => 'btn btn-primary btn-sm']) !!}    
+    @endcan
 </div>
 @endsection
 @section('content')

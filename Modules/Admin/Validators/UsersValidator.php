@@ -19,8 +19,8 @@ class UsersValidator extends BaseValidator
      */
     protected $rules = [
         ValidatorInterface::RULE_CREATE => [
-            'name' => 'required',
-            'age'  => 'required|numeric'
+            'email' => 'required|email',
+            'password' => 'required'
         ],
         ValidatorInterface::RULE_UPDATE => [
             'name' => 'required|max:150',
