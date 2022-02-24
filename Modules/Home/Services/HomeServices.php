@@ -41,6 +41,7 @@ class HomeServices
         return Common::renderMenus($dataTree, 'navbar', $menu_style, true, function ($item) {
             return [
                 'class' => 'text-uppercase nav-link',
+                'liClass' => implode(' ', ['text-uppercase', data_get($item, 'class')]),
                 'active' => Request::is($item['link'])
             ];
         });

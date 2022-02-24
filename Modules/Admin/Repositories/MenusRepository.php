@@ -67,6 +67,7 @@ class MenusRepository extends AdminBaseRepository
             'menu_name as title',
             'menu_link as link',
             'menu_icon as icon',
+            'menu_class as class',
             'parent_id',
             'menu_lft',
             'menu_rgt'
