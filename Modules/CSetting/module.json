@@ -1,0 +1,13 @@
+{
+    "name": "CSetting",
+    "alias": "csetting",
+    "description": "",
+    "keywords": [],
+    "priority": 0,
+    "providers": [
+        "Modules\\CSetting\\Providers\\CSettingServiceProvider"
+    ],
+    "aliases": {},
+    "files": [],
+    "requires": []
+}

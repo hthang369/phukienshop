@@ -1,0 +1,24 @@
+<?php
+
+/*
+|--------------------------------------------------------------------------
+| Web Routes
+|--------------------------------------------------------------------------
+|
+| Here is where you can register web routes for your application. These
+| routes are loaded by the RouteServiceProvider within a group which
+| contains the "web" middleware group. Now create something great!
+|
+*/
+
+Route::prefix('sales')->group(function() {
+    Route::get('/', 'SalesController@index');
+});
+
+Route::group(['middleware' => ['auth:web', 'info-web'], 'prefix' => 'admin'], function() {
+    Route::resource('promotions', 'Promotions\PromotionsController');
+    Route::resource('orders', 'Orders\OrdersController');
+    Route::resource('shipping', 'Shippings\ShippingController');
+    Route::resource('brands', 'Brands\BrandsController');
+});
+Route::sortRoute();
