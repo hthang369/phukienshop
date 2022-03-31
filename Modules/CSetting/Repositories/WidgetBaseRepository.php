@@ -2,9 +2,12 @@
 
 namespace Modules\CSetting\Repositories;
 
-use Vnnit\Core\Repositories\BaseRepository;
-
-abstract class WidgetBaseRepository extends BaseRepository
+abstract class WidgetBaseRepository extends SettingBaseRepository
 {
-
+    public function deleteKey($id)
+    {
+        $settingId = $this->model::getSettingId('widget');
+        return $this->model->where('setting_id', $settingId)
+                    ->where('key', $id)->delete();
+    }
 }

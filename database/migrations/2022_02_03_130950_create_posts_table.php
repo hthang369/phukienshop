@@ -20,6 +20,7 @@ class CreatePostsTable extends Migration
             $table->string('post_excerpt')->nullable();
             $table->datetime('post_date');
             $table->string('post_link');
+            $table->string('post_image');
             $table->text('post_content');
             $table->string('ob_title', 150)->nullable();
             $table->string('ob_desception', 250)->nullable();

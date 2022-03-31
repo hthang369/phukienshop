@@ -1,31 +1,22 @@
-<section id="topbar" class="d-flex align-items-center">
-    <div class="container d-flex justify-content-center justify-content-md-between">
-        <div class="contact-info d-flex align-items-center">
-            @widget('text_top_herder')
-        </div>
-
-        <div class="social-links d-none d-md-flex">
-            @widget('text_header_social')
+<header class="container-xl px-0">
+    <div id="iHeader" class="row">
+        <div class="col">
+            <div id="ilogo" class="d-flex justify-content-between py-2">
+                <a href=""><img src="{{ vnn_asset(data_get($infoSettings, 'home.web_banner')) }}" class="img-fluid" height="110"></a>
+            </div>
         </div>
     </div>
-</section>
-
-<header id="header" class="d-flex align-items-center sticky-top">
-    <div class="container d-flex align-items-center justify-content-between">
-        <div class="logo">
-            <h1><a href="/"><img src="{{ asset("storage/images/".data_get($infoSettings, 'home.web_logo')) }}" /></a></h1>
-            <!-- Uncomment below if you prefer to use an image logo -->
-            <!-- <a href="index.html"><img src="assets/img/logo.png" alt="" class="img-fluid"></a>-->
-        </div>
-
-        <nav id="navbar" class="navbar navbar-expand-lg navbar-light">
-        {!! $menus !!}
-        </nav><!-- .navbar -->
-
-        <div class="navbar-info">
-            {!! bt_link_to('', '', 'link', ['icon' => 'fa-search']) !!}
-            {!! bt_link_to_route('cart.index', null, 'link', [], ['icon' => 'fa-shopping-cart']) !!}
-            <i class="fa fa-user-o mx-2" aria-hidden="true"></i>
-        </div>
-        </div>
 </header>
+
+<nav class="bg-primary">
+    <div id="iTopmenu" class="container-xl">
+        <nav class="navbar navbar-expand-lg navbar-dark bg-primary pl-sm-0 py-1">
+            {!! $menus !!}
+
+            <form class="form-inline my-2 my-lg-0">
+                <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+                <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+            </form>
+        </nav>
+    </div>
+</nav>

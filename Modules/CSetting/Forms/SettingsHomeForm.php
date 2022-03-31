@@ -1,6 +1,6 @@
 <?php
 
-namespace Modules\CSetting\Forms;
+namespace Modules\Setting\Forms;
 
 use Vnnit\Core\Forms\Field;
 use Vnnit\Core\Forms\Form;
@@ -11,42 +11,42 @@ class SettingsHomeForm extends Form
     {
         if ($this->getData('action') == 'edit') {
             $this->add('web_favicon', Field::FILE, [
-                'label' => trans('csetting::configs.web_favicon'),
+                'label' => trans('setting::configs.web_favicon'),
             ]);
             $this->add('web_logo', Field::FILE, [
-                'label' => trans('csetting::configs.web_logo'),
+                'label' => trans('setting::configs.web_logo'),
             ]);
             $this->add('web_banner', Field::FILE, [
-                'label' => trans('csetting::configs.web_banner'),
+                'label' => trans('setting::configs.web_banner'),
             ]);
             $this->add('save_info', Field::BUTTON_SUBMIT, [
-                'label' => trans('csetting::configs.save_info'),
+                'label' => trans('setting::configs.save_info'),
                 'attr' => ['class' => 'btn btn-success']
             ]);
             $this->add('cancel_info', Field::BUTTON_SUBMIT, [
-                'label' => trans('csetting::configs.cancel_info'),
+                'label' => trans('setting::configs.cancel_info'),
                 'attr' => ['class' => 'btn btn-secondary', 'formaction' => route('setting.index'), 'formmethod' => 'get']
             ]);
         } else {
             $this->add('web_favicon', Field::PICTURE, [
-                'label' => trans('csetting::configs.web_favicon'),
-                'url' => 'storage/images/',
+                'label' => trans('setting::configs.web_favicon'),
+                'url' => 'public/storage/images/',
                 'width' => '150',
                 'wrapper' => ['inline' => true],
                 'label_attr' => ['class' => ['col-4']],
                 'field_attr' => ['class' => ['col-8']]
             ]);
             $this->add('web_logo', Field::PICTURE, [
-                'label' => trans('csetting::configs.web_logo'),
-                'url' => 'storage/images/',
+                'label' => trans('setting::configs.web_logo'),
+                'url' => 'public/storage/images/',
                 'width' => '150',
                 'wrapper' => ['inline' => true],
                 'label_attr' => ['class' => ['col-4']],
                 'field_attr' => ['class' => ['col-8']]
             ]);
             $this->add('web_banner', Field::PICTURE, [
-                'label' => trans('csetting::configs.web_banner'),
-                'url' => 'storage/images/',
+                'label' => trans('setting::configs.web_banner'),
+                'url' => 'public/storage/images/',
                 'width' => '150',
                 'wrapper' => ['inline' => true],
                 'label_attr' => ['class' => ['col-4']],

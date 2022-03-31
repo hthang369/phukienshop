@@ -15,13 +15,9 @@ return [
     'widget' => 'Widget',
     'sort' => 'Sắp xếp menu',
     'role_has_permissions' => 'Cấp quyền',
-    'brands' => 'Thương hiệu',
-    'products' => 'Sản phẩm',
-    'promotions' => 'Khuyến mãi',
+    'contact' => 'Liên hệ',
     'manager_posts' => 'Quản lý bài viết',
     'manager_news' => 'Quản lý tin tức',
-    'manager_products' => 'Quản lý sản phẩm',
-    'manager_orders' => 'Quản lý đơn hàng',
 
     'menu_name' => 'Tên menu',
     'menu_link' => 'Link menu',
@@ -53,8 +49,6 @@ return [
         'dashboard' => 'Bảng điều khiển',
         'media' => 'Quản lý tập tin',
         'role_has_permissions' => 'Cấp quyền',
-        'brands' => 'Thương hiệu',
-        'products' => 'Sản phẩm',
-        'promotions' => 'Khuyến mãi'
+        'contact' => 'Liên hệ',
     ]
 ];

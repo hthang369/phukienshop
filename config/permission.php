@@ -22,12 +22,7 @@ return [
         ['name'=> 'media', 'code' => 'media', 'url' => '', 'api' => 'media'],
         ['name'=> 'users', 'code' => 'users', 'url' => '', 'api' => 'users'],
         ['name'=> 'widget', 'code' => 'widget', 'url' => '', 'api' => 'widget'],
-        ['name'=> 'products', 'code' => 'products', 'url' => '', 'api' => 'products'],
-        ['name'=> 'orders', 'code' => 'orders', 'url' => '', 'api' => 'orders'],
-        ['name'=> 'shipping', 'code' => 'shipping', 'url' => '', 'api' => 'shipping'],
-        ['name'=> 'customers', 'code' => 'customers', 'url' => '', 'api' => 'customers'],
-        ['name'=> 'promotions', 'code' => 'promotions', 'url' => '', 'api' => 'promotions'],
-        ['name'=> 'brands', 'code' => 'brands', 'url' => '', 'api' => 'brands'],
+        ['name'=> 'contact', 'code' => 'contact', 'url' => '', 'api' => 'contact'],
     ],
     /*
      * permission actions
@@ -51,15 +46,10 @@ return [
         'slides'                   => ['public', 'view', 'add', 'edit', 'delete'],
         'advertises'               => ['public', 'view', 'add', 'edit', 'delete'],
         'role'                     => ['view', 'add', 'edit', 'delete'],
-        'role_has_permissions'     => ['view', 'add', 'edit', 'delete'],
+        'role_has_permissions'     => ['view', 'edit'],
         'users'                    => ['view', 'add', 'edit', 'delete'],
-        'widget'                   => ['view', 'add', 'edit'],
-        'products'                 => ['view', 'add', 'edit', 'delete'],
-        'orders'                   => ['view', 'edit', 'delete'],
-        'shipping'                 => ['view', 'add', 'edit', 'delete'],
-        'customers'                => ['view', 'edit', 'delete'],
-        'promotions'               => ['view', 'add', 'edit', 'delete'],
-        'brands'                   => ['view', 'add', 'edit', 'delete'],
+        'widget'                   => ['view', 'add', 'edit', 'delete'],
+        'contact'                  => ['view', 'edit', 'delete'],
     ],
 
     'custom_section_action' => [

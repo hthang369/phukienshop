@@ -1,18 +1,18 @@
 <?php
 
-namespace Modules\Admin\Repositories\Users;
+namespace Modules\Admin\Repositories;
 
 use App\Models\Users\User;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
-use Modules\Admin\Forms\Users\AccountInfoForm;
-use Modules\Admin\Forms\Users\ChangePasswordForm;
-use Modules\Admin\Forms\Users\UsersForm;
-use Modules\Admin\Grids\Users\UsersGrid;
-use Modules\Core\Repositories\BaseCoreRepository;
+use Modules\Admin\Entities\UsersModel;
+use Modules\Admin\Forms\AccountInfoForm;
+use Modules\Admin\Forms\ChangePasswordForm;
+use Modules\Admin\Forms\UsersForm;
+use Modules\Admin\Grids\UsersGrid;
 use Vnnit\Core\Permissions\Role;
 
-class UsersRepository extends BaseCoreRepository
+class UsersRepository extends AdminBaseRepository
 {
     protected $presenterClass = UsersGrid::class;
     /**
@@ -86,7 +86,7 @@ class UsersRepository extends BaseCoreRepository
         if (Hash::needsRehash($attributes['password'])) {
             $attributes['password'] = Hash::make($attributes['password']);
         }
-
+        
         $listRole = Role::whereIn('level', $roleVals)->pluck('name')->toArray();
         return DB::transaction(function () use ($attributes, $id, $listRole) {
             $user = parent::update(array_filter($attributes), $id);

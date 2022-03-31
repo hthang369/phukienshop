@@ -1,6 +1,6 @@
 <?php
 
-namespace Modules\Admin\Validators\Users;
+namespace Modules\Admin\Validators;
 
 use Vnnit\Core\Validators\BaseValidator;
 use \Prettus\Validator\Contracts\ValidatorInterface;
@@ -19,9 +19,8 @@ class UsersValidator extends BaseValidator
      */
     protected $rules = [
         ValidatorInterface::RULE_CREATE => [
-            'username' => 'required',
-            'email' => 'required|email|unique:users',
-            'password' => 'required|string|min:8'
+            'email' => 'required|email',
+            'password' => 'required'
         ],
         ValidatorInterface::RULE_UPDATE => [
             'name' => 'required|max:150',

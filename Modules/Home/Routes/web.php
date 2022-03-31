@@ -11,15 +11,11 @@
 |
 */
 
-Route::group(['middleware' => ['access-home'], 'prefix' => ''], function() {
+Route::group(['prefix' => ''], function() {
     Route::get('/', 'HomeController@index')->name('home');
-    Route::resource('cart', 'CartController', ['except' => ['update', 'delete']]);
-    Route::post('add-cart', 'CartController@addCart')->name('cart.add');
-    Route::put('update-cart', 'CartController@updateCart')->name('cart.update');
-    Route::put('delete-cart', 'CartController@deleteCart')->name('cart.delete');
-    // Route::get('/post/{title}', 'HomeController@showPost')->name('page.show-post');
+    Route::get('/dich-vu/{title}', 'PostController@show')->name('page.show-post');
+    Route::post('/send-mail', 'HomeController@sendMail')->name('page.send-mail');
     // Route::get('/detail/{title}', 'HomeController@showPostDetail')->name('page.show-detail');
 
-    Route::get('/{title}', 'CategoryController@show')->name('page.show');
-    Route::get('/{title}/{slug}', 'ProductController@showProduct')  ->name('page.show-product');
+    Route::get('/{title}', 'HomeController@show')->name('page.show');
 });

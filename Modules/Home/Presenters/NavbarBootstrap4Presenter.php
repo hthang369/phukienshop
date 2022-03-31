@@ -85,7 +85,7 @@ class NavbarBootstrap4Presenter extends Presenter
      */
     public function getMenuWithDropDownWrapper($item)
     {
-        return '<li class="nav-item dropdown' . $this->getActiveStateOnChild($item, ' active') . '">
+        return '<li class="nav-item dropdown' . $this->getActiveStateOnChild($item, ' active') . ' ' . data_get($item->attributes, 'liClass') . '">
 		          <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">
 					' . $item->getIcon() . ' ' . $item->title . '
 			      	<b class="caret"></b>

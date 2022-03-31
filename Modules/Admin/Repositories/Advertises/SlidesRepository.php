@@ -13,6 +13,8 @@ class SlidesRepository extends BaseCoreRepository
 {
     use SlidesCriteria;
 
+    protected $imageColumnName = 'advertise_image';
+
     protected $presenterClass = SlidesGrid::class;
     /**
      * Specify Model class name
@@ -51,23 +53,7 @@ class SlidesRepository extends BaseCoreRepository
 
     public function create(array $attributes)
     {
-        $dataImageNew = $this->uploadFile($attributes, 'advertise_image');
-        if ($dataImageNew)
-            $attributes['advertise_image'] = $dataImageNew;
         $attributes['advertise_type'] = 'slide';
         return parent::create($attributes);
-    }
-
-    public function update(array $attributes, $id)
-    {
-        return DB::transaction(function () use($attributes, $id) {
-            $data = $this->find($id, ['advertise_image']);
-            $dataImageNew = $this->uploadFile($attributes, 'advertise_image', null, false);
-            if ($dataImageNew)
-                $attributes['advertise_image'] = $dataImageNew;
-            $base = parent::update($attributes, $id);
-            $this->deleteFile($data['advertise_image']);
-            return $base;
-        });
     }
 }

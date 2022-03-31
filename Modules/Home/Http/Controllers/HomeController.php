@@ -16,8 +16,6 @@ class HomeController extends BaseController
     protected $permissionActions = [
         'index' => 'public',
         'show' => 'public',
-        'showPost' => 'public',
-        'showPostDetail' => 'public',
         'sendMail' => 'public'
     ];
 
@@ -32,9 +30,8 @@ class HomeController extends BaseController
      */
     public function index()
     {
-        $slides = $this->repository->getAllSlide();
-        $products = $this->repository->getPromotionProducts();
-        return $this->response->data(request(), compact('slides', 'products'), 'home::index');
+        $data = $this->repository->show('/');
+        return $this->response->data(request(), ['result' => $data['data']], 'home::index');
     }
 
     /**
@@ -45,31 +42,20 @@ class HomeController extends BaseController
     public function show($id)
     {
         $base = $this->repository->show($id);
+        if (!array_has($base, 'data.ob_desception')) {
+            data_set($base, 'data.ob_desception', Setting::get('info', 'ob_desception'));
+        }
 
         $viewName = $base['view_name'];
         if (blank($viewName)) $viewName = 'show';
-        $this->data['mapInfo'] = data_get($this->allSetting, 'map.web_map');
 
-        return view("home::$viewName", array_merge($this->data, $base['data']));
+        return $this->response->data(request(), ['result' => $base['data']], "home::{$viewName}");
     }
 
-    public function showPost($id)
+    public function sendMail(Request $request)
     {
-        $base = $this->repository->findPostCategory($id);
+        $base = $this->repository->sendMail($request->all());
 
-        $viewName = 'category';
-        $this->data['mapInfo'] = data_get($this->allSetting, 'map.web_map');
-
-        return view("home::$viewName", array_merge($this->data, $base));
-    }
-
-    public function showPostDetail($id)
-    {
-        $base = $this->repository->findPost($id);
-
-        $viewName = 'show';
-        $this->data['mapInfo'] = data_get($this->allSetting, 'map.web_map');
-
-        return view("home::$viewName", array_merge($this->data, $base));
+        return $this->response->created($request, $base);
     }
 }

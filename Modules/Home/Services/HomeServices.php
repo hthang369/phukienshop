@@ -3,10 +3,13 @@
 namespace Modules\Home\Services;
 
 use App\Facades\Common;
-use Illuminate\Support\Collection;
-use Modules\Admin\Entities\MenusModel;
-use Modules\Admin\Enums\PromotionType;
-use Nwidart\Menus\Facades\Menu;
+use Illuminate\Support\Facades\Request;
+use Modules\Admin\Repositories\CategoriesRepository;
+use Modules\Admin\Repositories\MenusRepository;
+use Modules\Admin\Repositories\SlidesRepository;
+use Modules\Home\Repositories\CounterOnlineRepository;
+use Modules\Home\Repositories\TotalOnlineRepository;
+use Modules\Home\Repositories\UserOnlineRepository;
 
 class HomeServices
 {
@@ -22,54 +25,88 @@ class HomeServices
 
     public function getFooterOurMenus()
     {
-        return $this->getNavbarMenus('footer_our');
-    }
-
-    private function getNavbarMenus($type, $menu_style = '')
-    {
-        $dataTree = MenusModel::where('menu_type', $type)->defaultOrder()->get()->toTree();
-        Menu::create('navbar', function($menu) use($dataTree, $menu_style) {
-            if (!blank($menu_style))
-                $menu->style($menu_style);
-            $this->renderMenu($menu, $dataTree);
-        });
-        return Menu::get('navbar');
-    }
-
-    private function renderMenu(&$menu, $dataTree, $class = 'nav-link')
-    {
-        $dataTree->each(function($item) use(&$menu, $class) {
-            $childrens = data_get($item, 'children');
-            if ($childrens && $childrens->count() > 0) {
-                $menu->dropdown(data_get($item, 'menu_name'), function($subMenu) use($childrens) {
-                    $this->renderMenu($subMenu, $childrens, 'dropdown-item');
-                });
-            } else {
-                $icon = data_get($item, 'menu_icon');
-                $menu->url(data_get($item, 'menu_link'), data_get($item, 'menu_name'),
-                    ['class' => $class, 'icon' => $icon]
-                );
-            }
-        });
-    }
-
-    public function generatePortfolio($results, $type = 'post')
-    {
-        if (!($results instanceof Collection)) {
-            $results = collect($results);
-        }
-        return $results->map(function($item) use($type) {
+        // return $this->getNavbarMenus('footer_our');
+        $dataTree = resolve(CategoriesRepository::class)->getDataTreeByType('post');
+        return Common::renderMenus($dataTree, 'navbar', '', true, function ($item) {
             return [
-                'link' => route('page.show-detail', data_get($item, "{$type}_link")),
-                'images' => [
-                    'src' => asset("storage/images/".$item->{$type.'_image'}),
-                    'name' => $item->{$type.'_image'},
-                    'class' => 'card-img-top'
-                ],
-                'title' => $item->{$type.'_title'},
-                'excerpt' => $item->{$type.'_excerpt'}
+                'class' => 'text-uppercase',
+                'link' => route('page.show-post', $item['link'])
             ];
         });
     }
 
+    private function getNavbarMenus($type, $menu_style = '')
+    {
+        $dataTree = resolve(MenusRepository::class)->getDataByType($type);
+        return Common::renderMenus($dataTree, 'navbar', $menu_style, true, function ($item) {
+            return [
+                'class' => 'text-uppercase nav-link',
+                'liClass' => implode(' ', ['text-uppercase', data_get($item, 'class')]),
+                'active' => Request::is($item['link'])
+            ];
+        });
+    }
+
+    public function getCategoriesMenus()
+    {
+        $dataTree = resolve(CategoriesRepository::class)->getDataTreeByType('post');
+        return Common::renderMenus($dataTree, 'navbar', 'sidebar_bt4', true, function ($item) {
+            return [
+                'class' => 'text-uppercase nav-link',
+                'link' => route('page.show-post', $item['link'])
+            ];
+        });
+    }
+
+    public function getSiderMenus()
+    {
+        $results = resolve(SlidesRepository::class)->all();
+        return $results->map(function ($item) {
+            return [
+                'image' => ['src' => asset('public/storage/images/' . $item->advertise_image), 'lazyload' => false, 'height' => 280]
+            ];
+        })->all();
+    }
+
+    public function calculatorCounterAccessTime()
+    {
+        $tg = time();
+        $tgout = 600;
+        $tgnew = $tg - $tgout;
+        $now = date("Y-m-d");
+        $nowht = gmdate("H:i:s", $tg + 7 * 3600);
+        $userOnlineRepo = resolve(UserOnlineRepository::class);
+        $counterOnlineRepo = resolve(CounterOnlineRepository::class);
+        $totalOnlineRepo = resolve(TotalOnlineRepository::class);
+        $ip = request()->ip();
+        $userOnlineRepo->create([
+            'tgtmp' => $tg,
+            'ip' => request()->ip(),
+            'local' => request()->fullUrl(),
+            'time' => $nowht
+        ]);
+        $userOnlineRepo->deleteTimestamp($tgnew);
+        $isOnline = $userOnlineRepo->pluck('ip')->unique()->count();
+        $todayOnline = $counterOnlineRepo->getTotalCounter($now);
+        $totalForIp = $userOnlineRepo->getTotalDataIsIp($ip);
+        if ($totalForIp == 1) {
+            $counterOnlineRepo->create([
+                'counter' => 1,
+                'date' => $now
+            ]);
+        }
+        $totalLessNow = $counterOnlineRepo->getTotalCounterLessNow($now);
+        $result = $totalOnlineRepo->pluck('sum', 'id')->toArray();
+        $id = key($result);
+        $totalOnline = head($result);
+        if ($totalLessNow > 0) {
+            $totalOnlineRepo->update([
+                'sum' => $totalOnline + $totalLessNow,
+                'date' => $now
+            ], $id);
+            $counterOnlineRepo->deleteTimestamp($now);
+        }
+
+        return compact('isOnline', 'todayOnline', 'totalOnline');
+    }
 }

@@ -1,10 +1,10 @@
 <?php
 
-namespace Modules\CSetting\Http\Controllers;
+namespace Modules\Setting\Http\Controllers;
 
-use Modules\CSetting\Repositories\SettingRepository;
-use Modules\CSetting\Responses\SettingResponse;
-use Modules\CSetting\Validators\SettingValidator;
+use Modules\Setting\Repositories\SettingRepository;
+use Modules\Setting\Responses\SettingResponse;
+use Modules\Setting\Validators\SettingValidator;
 use Vnnit\Core\Http\Controllers\CoreController;
 
 class SettingController extends CoreController
@@ -16,13 +16,19 @@ class SettingController extends CoreController
     public function __construct(SettingRepository $repository, SettingValidator $validator, SettingResponse $response)
     {
         parent::__construct($repository, $validator, $response);
-        $this->setDefaultView('csetting::');
+        $this->setDefaultView('setting::');
         $this->setRouteName('setting');
         $this->setPathView([
-            'edit'  => 'csetting::index',
+            'edit'  => 'setting::index',
+            'update' => 'setting.index',
             // 'create' => 'admin::configs.slide_modal',
             // 'show' => 'admin::configs.slide_modal'
         ]);
+    }
+
+    public function view($id = null)
+    {
+        return $this->index();
     }
 
     /**

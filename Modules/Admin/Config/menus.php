@@ -56,7 +56,7 @@ return [
             [
                 'menu_title' => 'admin::menus.categories',
                 'menu_name' => 'categories.*',
-                'menu_link' => 'categories.news.index',
+                'menu_link' => 'categories.index',
                 'menu_icon' => 'nav-icon fa fa-list-alt',
                 'actived' => '',
                 'section' => 'categories',
@@ -126,90 +126,6 @@ return [
         'children' => []
     ],
     [
-        'menu_title' => 'admin::menus.manager_products',
-        'menu_name' => 'products.*',
-        'menu_link' => 'products.index',
-        'menu_icon' => 'nav-icon fa fa-sliders',
-        'menu_id'   => 'manager_products',
-        'actived' => '',
-        'section' => 'products',
-        'visiable' => false,
-        'children' => [
-            [
-                'menu_title' => 'admin::menus.categories',
-                'menu_name' => 'categories.*',
-                'menu_link' => 'categories.product.index',
-                'menu_icon' => 'nav-icon fa fa-list-alt',
-                'actived' => '',
-                'section' => 'categories',
-                'visiable' => false,
-                'children' => []
-            ],
-            [
-                'menu_title' => 'admin::menus.brands',
-                'menu_name' => 'brands.*',
-                'menu_link' => 'brands.index',
-                'menu_icon' => 'nav-icon fa fa-list-alt',
-                'actived' => '',
-                'section' => 'brands',
-                'visiable' => false,
-                'children' => []
-            ],
-            [
-                'menu_title' => 'admin::menus.products',
-                'menu_name' => 'products.*',
-                'menu_link' => 'products.index',
-                'menu_icon' => 'nav-icon fa fa-newspaper-o',
-                'actived' => '',
-                'section' => 'products',
-                'visiable' => false,
-                'children' => []
-            ],
-            [
-                'menu_title' => 'admin::menus.promotions',
-                'menu_name' => 'promotions.*',
-                'menu_link' => 'promotions.index',
-                'menu_icon' => 'nav-icon fa fa-newspaper-o',
-                'actived' => '',
-                'section' => 'promotions',
-                'visiable' => false,
-                'children' => []
-            ]
-        ]
-    ],
-    [
-        'menu_title' => 'admin::menus.manager_orders',
-        'menu_name' => 'orders.*',
-        'menu_link' => 'orders.index',
-        'menu_icon' => 'nav-icon fa fa-sliders',
-        'menu_id'   => 'manager_orders',
-        'actived' => '',
-        'section' => 'orders',
-        'visiable' => false,
-        'children' => [
-            [
-                'menu_title' => 'admin::menus.orders',
-                'menu_name' => 'orders.*',
-                'menu_link' => 'orders.index',
-                'menu_icon' => 'nav-icon fa fa-list-alt',
-                'actived' => '',
-                'section' => 'orders',
-                'visiable' => false,
-                'children' => []
-            ],
-            [
-                'menu_title' => 'admin::menus.shipping',
-                'menu_name' => 'shipping.*',
-                'menu_link' => 'shipping.index',
-                'menu_icon' => 'nav-icon fa fa-newspaper-o',
-                'actived' => '',
-                'section' => 'shipping',
-                'visiable' => false,
-                'children' => []
-            ]
-        ]
-    ],
-    [
         'menu_title' => 'admin::menus.role',
         'menu_name' => 'role.*',
         'menu_link' => 'role.index',
@@ -226,6 +142,16 @@ return [
         'menu_icon' => 'nav-icon fa fa-users',
         'actived' => '',
         'section' => 'employee',
+        'visiable' => false,
+        'children' => []
+    ],
+    [
+        'menu_title' => 'admin::menus.contact',
+        'menu_name' => 'contact.*',
+        'menu_link' => 'contact.index',
+        'menu_icon' => 'nav-icon fa fa-youtube-play',
+        'actived' => '',
+        'section' => 'contact',
         'visiable' => false,
         'children' => []
     ],

@@ -1,13 +1,13 @@
 <?php
 
-namespace Modules\CSetting\Http\Controllers;
+namespace Modules\Setting\Http\Controllers;
 
-use Modules\CSetting\Repositories\WidgetCriteria;
-use Modules\CSetting\Repositories\WidgetRepository;
-use Modules\CSetting\Responses\WidgetResponse;
-use Modules\CSetting\Validators\WidgetValidator;
-use Modules\CSetting\Forms\WidgetGroupForm;
-use Modules\CSetting\Forms\WidgetTextForm;
+use Modules\Setting\Repositories\WidgetCriteria;
+use Modules\Setting\Repositories\WidgetRepository;
+use Modules\Setting\Responses\WidgetResponse;
+use Modules\Setting\Validators\WidgetValidator;
+use Modules\Setting\Forms\WidgetGroupForm;
+use Modules\Setting\Forms\WidgetTextForm;
 use Vnnit\Core\Http\Controllers\CoreController;
 
 class WidgetController extends CoreController
@@ -19,13 +19,12 @@ class WidgetController extends CoreController
     public function __construct(WidgetRepository $repository, WidgetValidator $validator, WidgetResponse $response, WidgetCriteria $criteria)
     {
         parent::__construct($repository, $validator, $response);
-        $this->setDefaultView('csetting::');
+        $this->setDefaultView('setting::');
         $this->setRouteName('widget');
         $this->setPathView([
-            'index' => 'csetting::widgets.widget',
-            'edit'  => 'csetting::widget',
-            'create' => 'csetting::widgets.create',
-            'update' => 'widget.update',
+            'index' => 'setting::widgets.widget',
+            'edit'  => 'setting::widget',
+            'create' => 'setting::widgets.create',
             // 'show' => 'admin::configs.slide_modal'
         ]);
     }

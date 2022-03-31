@@ -9,19 +9,19 @@
 
         <title>@yield('title', config('app.name', '@Master Layout'))</title>
 
-       <link rel="stylesheet" href="{{ asset('css/adminlte.min.css') }}">
-       <link rel="stylesheet" href="{{ asset('css/font-awesome.min.css') }}">
-       <link rel="stylesheet" href="{{ asset('css/admin.css') }}">
-       <link rel="stylesheet" href="{{ asset('css/multiple-select.min.css') }}">
-       <link rel="stylesheet" href="{{ asset('css/multiple-select-bootstrap.min.css') }}">
+       <link rel="stylesheet" href="{{ asset('public/css/adminlte.min.css') }}">
+       <link rel="stylesheet" href="{{ asset('public/css/font-awesome.min.css') }}">
+       <link rel="stylesheet" href="{{ asset('public/css/admin.css') }}">
+       <link rel="stylesheet" href="{{ asset('public/css/multiple-select.min.css') }}">
+       <link rel="stylesheet" href="{{ asset('public/css/multiple-select-bootstrap.min.css') }}">
         @stack('styles')
     </head>
     <body class="hold-transition sidebar-mini layout-fixed dark-mode">
         <section class="wrapper">
             <!-- Preloader -->
-            {{-- <div class="preloader flex-column justify-content-center align-items-center">
-              <img class="animation__shake" src="{{ asset('images/logo/AdminLTELogo.png') }}" alt="AdminLTELogo" height="60" width="60">
-            </div> --}}
+            <div class="preloader flex-column justify-content-center align-items-center">
+              <img class="animation__shake" src="{{ asset('public/images/logo/AdminLTELogo.png') }}" alt="AdminLTELogo" height="60" width="60">
+            </div>
 
             <div class="fixed-top w-25 mt-3" id="popupToast"></div>
 
@@ -36,10 +36,10 @@
             @include('bootstrap::components.modal.container')
         </section>
 
-        <script src="{{ asset('js/app.js') }}"></script>
-        <script src="{{ asset('js/multiple-select.min.js') }}"></script>
-        <script src="{{ asset('js/adminlte.js') }}"></script>
-        <script src="{{ asset('js/data-grid.js') }}"></script>
+        <script src="{{ asset('public/js/app.js') }}"></script>
+        <script src="{{ asset('public/js/multiple-select.min.js') }}"></script>
+        <script src="{{ asset('public/js/adminlte.js') }}"></script>
+        <script src="{{ asset('public/js/data-grid.js') }}"></script>
         @stack('scripts')
         @yield('scripts_content')
     </body>

@@ -108,5 +108,11 @@ return [
                 'parent' => ['admin.index']
             ]
         ],
+        'contact' => [
+            'index' => [
+                'link' => null,
+                'parent' => ['admin.index']
+            ]
+        ],
     ]
 ];

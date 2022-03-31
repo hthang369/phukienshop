@@ -1,6 +1,6 @@
 <?php
 
-namespace Modules\Admin\Validators\Pages;
+namespace Modules\Admin\Validators;
 
 use Prettus\Validator\Contracts\ValidatorInterface;
 use Vnnit\Core\Validators\BaseValidator;
@@ -20,12 +20,12 @@ class PagesValidator extends BaseValidator
     protected $rules = [
         ValidatorInterface::RULE_CREATE => [
             'post_title' => 'required',
-            'post_link' => 'nullable|alpha_dash',
+            'post_link' => 'nullable|string|alpha_dash',
             'post_image' => 'nullable|image|mimes:jpg,bmp,png|mimetypes:image/png,image/jpeg,image/bmp'
         ],
         ValidatorInterface::RULE_UPDATE => [
             'post_title' => 'required',
-            'post_link' => 'nullable|alpha_dash',
+            'post_link' => 'nullable|string|alpha_dash',
             'post_image' => 'nullable|image|mimes:jpg,bmp,png|mimetypes:image/png,image/jpeg,image/bmp'
         ],
     ];

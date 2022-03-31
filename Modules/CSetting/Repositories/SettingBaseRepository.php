@@ -22,7 +22,7 @@ abstract class SettingBaseRepository extends CoreRepository
     public function update(array $settings, $id)
     {
         $result = [];
-        $updateData = array_diff_key($settings, array_flip(['_method', '_token']));
+        $updateData = array_diff_key($settings, array_flip(['_method', '_token', 'save_info']));
 
         foreach ($updateData as $key => $value) {
             $itemValue = $value;

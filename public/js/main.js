@@ -9,16 +9,15 @@
 
     // Back to top button
     $(window).scroll(function() {
-    //   if ($(window).scrollTop() > 100) {
-    //     $('#header').addClass('fixed-top');
-    //   }
-    //   else {
-    //     $('#header').removeClass('fixed-top');
-    //   }
       if ($(this).scrollTop() > 100) {
         $('.back-to-top').addClass('active');
       } else {
         $('.back-to-top').removeClass('active');
+      }
+      if ($(this).scrollTop() < ($(this).height() + 500)) {
+        $('.back-to-bottom').addClass('active');
+      } else {
+        $('.back-to-bottom').removeClass('active');
       }
     });
 
@@ -27,6 +26,12 @@
         scrollTop: 0
       }, 1500);
       return false;
+    });
+    $('.back-to-bottom').click(function () {
+        $('html, body').animate({
+            scrollTop: $('body').height()
+        }, 1500);
+        return false;
     });
 
     $('.php-email-form').validate({

@@ -42,7 +42,7 @@ return [
             'visibility' => 'public',
             'upload' => storage_path('app/public/upload'),
             'download' => storage_path('app/public/upload'),
-            'path_image' => 'storage/images/'
+            'path_image' => 'public/storage/images/'
         ],
 
         's3' => [

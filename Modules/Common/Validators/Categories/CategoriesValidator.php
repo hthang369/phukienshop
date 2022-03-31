@@ -1,6 +1,6 @@
 <?php
 
-namespace Modules\Common\Validators\Categories;
+namespace Modules\Admin\Validators;
 
 use Vnnit\Core\Validators\BaseValidator;
 use Prettus\Validator\Contracts\ValidatorInterface;
@@ -20,12 +20,12 @@ class CategoriesValidator extends BaseValidator
     protected $rules = [
         ValidatorInterface::RULE_CREATE => [
             'category_name' => 'required',
-            'category_link' => 'string|alpha_dash',
+            'category_link' => 'nullable|string|alpha_dash',
             'parent_id' => 'nullable|integer'
         ],
         ValidatorInterface::RULE_UPDATE => [
             'category_name' => 'required',
-            'category_link' => 'string|alpha_dash',
+            'category_link' => 'nullable|string|alpha_dash',
             'parent_id' => 'integer'
         ],
     ];
