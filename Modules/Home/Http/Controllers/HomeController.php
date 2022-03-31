@@ -21,31 +21,9 @@ class HomeController extends BaseController
         'sendMail' => 'public'
     ];
 
-    protected $data;
-    protected $allSetting;
-
     public function __construct(HomeRepository $repository, HomeValidator $validator, HomeResponse $response)
     {
         parent::__construct($repository, $validator, $response);
-
-        $menus = resolve(HomeServices::class)->getHeaderMenus();
-        $footerMenu = resolve(HomeServices::class)->getFooterMenus();
-        $footerOurMenu = resolve(HomeServices::class)->getFooterOurMenus();
-
-        $this->allSetting = Setting::getAllSetting();
-        $webName = data_get($this->allSetting, 'info.web_name');
-        $webAddess = data_get($this->allSetting, 'info.web_address');
-        $webPhone = data_get($this->allSetting, 'info.web_phone');
-        $webEmail = data_get($this->allSetting, 'info.web_email');
-
-        $webFavicon = data_get($this->allSetting, 'home.web_favicon');
-        $webLogo = data_get($this->allSetting, 'home.web_logo');
-
-        $headerSocial = data_get($this->allSetting, 'widget.text_header_social');
-        $footerSocial = data_get($this->allSetting, 'widget.text_footer_social');
-        $topHeader = data_get($this->allSetting, 'widget.text_top_herder');
-
-        $this->data = compact('menus', 'footerMenu', 'footerOurMenu', 'webName', 'webAddess', 'webPhone', 'webEmail', 'webFavicon', 'webLogo', 'headerSocial', 'footerSocial', 'topHeader');
     }
 
     /**
@@ -55,8 +33,8 @@ class HomeController extends BaseController
     public function index()
     {
         $slides = $this->repository->getAllSlide();
-        $products = $this->repository->getHomeProducts();
-        return view('home::index', array_merge($this->data, compact('slides', 'products')));
+        $products = $this->repository->getPromotionProducts();
+        return $this->response->data(request(), compact('slides', 'products'), 'home::index');
     }
 
     /**

@@ -1,10 +1,10 @@
 @extends('admin::layouts.master')
 
 @section('content')
-{!! $data['grid'] !!}
+{!! $grid !!}
 @endsection
 
-@section('scripts')
+@push('scripts')
 <script>
     $(document).ready(function() {
         $('#menu_type').change(function(e) {
@@ -16,4 +16,4 @@
         });
     });
 </script>
-@endsection
+@endpush

@@ -2,5 +2,11 @@
     "Admin": true,
     "Home": true,
     "Api": true,
-    "Setting": true
+    "CSetting": true,
+    "Common": true,
+    "Sales": true,
+    "Inventory": true,
+    "Posts": true,
+    "News": true,
+    "Core": true
 }

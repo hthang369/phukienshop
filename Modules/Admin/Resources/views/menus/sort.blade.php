@@ -7,7 +7,7 @@
 </div>
 <div class="menu-struct row">
     <div class="col-6">
-        {!! $data['grid'] !!}
+        {!! $grid !!}
     </div>
 </div>
 @endsection
@@ -28,7 +28,7 @@
 
         $('#btn-save-menu').click(function() {
             let data = JSON.stringify($('ol.sortable').nestedSortable('toArray', {startDepthCount: 0}))
-            $api.put('{{route("menus.sort-update", $data["result"])}}', data, {
+            $api.put('{{route("menus.sort-update", $data)}}', data, {
                 'targetLoading': '#btn-save-menu',
                 'pjaxContainer': '.ui-sortable'
             });

@@ -2,12 +2,13 @@
     {!! $data['form'] !!}
 {!! Modal::end() !!}
 
-@push('scripts')
+{{-- @section('scripts_content') --}}
 <script>
 $(document).ready(function() {
     $('#tablist').change(function(e) {
+        $('.tab-pane').removeClass('show').removeClass('active');
         $('#link_'+$(this).val()).tab('show')
     });
 });
 </script>
-@endpush
+{{-- @endsection --}}

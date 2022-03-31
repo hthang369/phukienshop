@@ -4,9 +4,10 @@ namespace Modules\Admin\Repositories;
 
 use Carbon\Carbon;
 use Modules\Admin\Entities\AdminModel;
+use Modules\Core\Repositories\BaseCoreRepository;
 use Vnnit\Core\Facades\Common;
 
-class AdminRepository extends AdminBaseRepository
+class AdminRepository extends BaseCoreRepository
 {
     protected $presenterClass;
     /**

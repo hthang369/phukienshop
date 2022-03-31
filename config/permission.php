@@ -22,6 +22,12 @@ return [
         ['name'=> 'media', 'code' => 'media', 'url' => '', 'api' => 'media'],
         ['name'=> 'users', 'code' => 'users', 'url' => '', 'api' => 'users'],
         ['name'=> 'widget', 'code' => 'widget', 'url' => '', 'api' => 'widget'],
+        ['name'=> 'products', 'code' => 'products', 'url' => '', 'api' => 'products'],
+        ['name'=> 'orders', 'code' => 'orders', 'url' => '', 'api' => 'orders'],
+        ['name'=> 'shipping', 'code' => 'shipping', 'url' => '', 'api' => 'shipping'],
+        ['name'=> 'customers', 'code' => 'customers', 'url' => '', 'api' => 'customers'],
+        ['name'=> 'promotions', 'code' => 'promotions', 'url' => '', 'api' => 'promotions'],
+        ['name'=> 'brands', 'code' => 'brands', 'url' => '', 'api' => 'brands'],
     ],
     /*
      * permission actions
@@ -48,6 +54,12 @@ return [
         'role_has_permissions'     => ['view', 'add', 'edit', 'delete'],
         'users'                    => ['view', 'add', 'edit', 'delete'],
         'widget'                   => ['view', 'add', 'edit'],
+        'products'                 => ['view', 'add', 'edit', 'delete'],
+        'orders'                   => ['view', 'edit', 'delete'],
+        'shipping'                 => ['view', 'add', 'edit', 'delete'],
+        'customers'                => ['view', 'edit', 'delete'],
+        'promotions'               => ['view', 'add', 'edit', 'delete'],
+        'brands'                   => ['view', 'add', 'edit', 'delete'],
     ],
 
     'custom_section_action' => [
@@ -73,10 +85,10 @@ return [
      */
     'roles' => [
         //important !! index 0 need be System Admin, will set all permissions by default
-        ['level' => 'L1', 'name' => 'System Admin', 'description' => '', 'guard_name'=> 'web', 'roles_status_prop' => 1],
-        ['level' => 'L2', 'name' => 'Admin', 'description' => '', 'guard_name'=> 'web', 'roles_status_prop' => 1],
-        ['level' => 'L3', 'name' => 'Manager', 'description' => '', 'guard_name'=> 'web', 'roles_status_prop' => 1],
-        ['level' => 'L4', 'name' => 'Staff', 'description' => '', 'guard_name'=> 'web', 'roles_status_prop' => 1],
+        ['level' => 'L1', 'name' => 'System Admin', 'description' => '', 'guard_name'=> 'web'],
+        ['level' => 'L2', 'name' => 'Admin', 'description' => '', 'guard_name'=> 'web'],
+        ['level' => 'L3', 'name' => 'Manager', 'description' => '', 'guard_name'=> 'web'],
+        ['level' => 'L4', 'name' => 'Staff', 'description' => '', 'guard_name'=> 'web'],
     ],
 
     'models' => [

@@ -12,34 +12,68 @@ return [
         'children' => []
     ],
     [
-        'menu_title' => 'admin::menus.categories',
-        'menu_name' => 'categories.*',
-        'menu_link' => 'categories.index',
-        'menu_icon' => 'nav-icon fa fa-list-alt',
-        'actived' => '',
-        'section' => 'categories',
-        'visiable' => false,
-        'children' => []
-    ],
-    [
-        'menu_title' => 'admin::menus.posts',
+        'menu_title' => 'admin::menus.manager_posts',
         'menu_name' => 'posts.*',
         'menu_link' => 'posts.index',
         'menu_icon' => 'nav-icon fa fa-edit',
+        'menu_id'   => 'manager_posts',
         'actived' => '',
         'section' => 'posts',
         'visiable' => false,
-        'children' => []
+        'children' => [
+            [
+                'menu_title' => 'admin::menus.categories',
+                'menu_name' => 'categories.*',
+                'menu_link' => 'categories.post.index',
+                'menu_icon' => 'nav-icon fa fa-list-alt',
+                'actived' => '',
+                'section' => 'categories',
+                'visiable' => false,
+                'children' => []
+            ],
+            [
+                'menu_title' => 'admin::menus.posts',
+                'menu_name' => 'posts.*',
+                'menu_link' => 'posts.index',
+                'menu_icon' => 'nav-icon fa fa-edit',
+                'actived' => '',
+                'section' => 'posts',
+                'visiable' => false,
+                'children' => []
+            ]
+        ]
     ],
     [
-        'menu_title' => 'admin::menus.news',
+        'menu_title' => 'admin::menus.manager_news',
         'menu_name' => 'news.*',
         'menu_link' => 'news.index',
         'menu_icon' => 'nav-icon fa fa-newspaper-o',
+        'menu_id'   => 'manager_news',
         'actived' => '',
         'section' => 'news',
         'visiable' => false,
-        'children' => []
+        'children' => [
+            [
+                'menu_title' => 'admin::menus.categories',
+                'menu_name' => 'categories.*',
+                'menu_link' => 'categories.news.index',
+                'menu_icon' => 'nav-icon fa fa-list-alt',
+                'actived' => '',
+                'section' => 'categories',
+                'visiable' => false,
+                'children' => []
+            ],
+            [
+                'menu_title' => 'admin::menus.news',
+                'menu_name' => 'news.*',
+                'menu_link' => 'news.index',
+                'menu_icon' => 'nav-icon fa fa-newspaper-o',
+                'actived' => '',
+                'section' => 'news',
+                'visiable' => false,
+                'children' => []
+            ]
+        ]
     ],
     [
         'menu_title' => 'admin::menus.pages',
@@ -90,6 +124,90 @@ return [
         'section' => 'advertises',
         'visiable' => false,
         'children' => []
+    ],
+    [
+        'menu_title' => 'admin::menus.manager_products',
+        'menu_name' => 'products.*',
+        'menu_link' => 'products.index',
+        'menu_icon' => 'nav-icon fa fa-sliders',
+        'menu_id'   => 'manager_products',
+        'actived' => '',
+        'section' => 'products',
+        'visiable' => false,
+        'children' => [
+            [
+                'menu_title' => 'admin::menus.categories',
+                'menu_name' => 'categories.*',
+                'menu_link' => 'categories.product.index',
+                'menu_icon' => 'nav-icon fa fa-list-alt',
+                'actived' => '',
+                'section' => 'categories',
+                'visiable' => false,
+                'children' => []
+            ],
+            [
+                'menu_title' => 'admin::menus.brands',
+                'menu_name' => 'brands.*',
+                'menu_link' => 'brands.index',
+                'menu_icon' => 'nav-icon fa fa-list-alt',
+                'actived' => '',
+                'section' => 'brands',
+                'visiable' => false,
+                'children' => []
+            ],
+            [
+                'menu_title' => 'admin::menus.products',
+                'menu_name' => 'products.*',
+                'menu_link' => 'products.index',
+                'menu_icon' => 'nav-icon fa fa-newspaper-o',
+                'actived' => '',
+                'section' => 'products',
+                'visiable' => false,
+                'children' => []
+            ],
+            [
+                'menu_title' => 'admin::menus.promotions',
+                'menu_name' => 'promotions.*',
+                'menu_link' => 'promotions.index',
+                'menu_icon' => 'nav-icon fa fa-newspaper-o',
+                'actived' => '',
+                'section' => 'promotions',
+                'visiable' => false,
+                'children' => []
+            ]
+        ]
+    ],
+    [
+        'menu_title' => 'admin::menus.manager_orders',
+        'menu_name' => 'orders.*',
+        'menu_link' => 'orders.index',
+        'menu_icon' => 'nav-icon fa fa-sliders',
+        'menu_id'   => 'manager_orders',
+        'actived' => '',
+        'section' => 'orders',
+        'visiable' => false,
+        'children' => [
+            [
+                'menu_title' => 'admin::menus.orders',
+                'menu_name' => 'orders.*',
+                'menu_link' => 'orders.index',
+                'menu_icon' => 'nav-icon fa fa-list-alt',
+                'actived' => '',
+                'section' => 'orders',
+                'visiable' => false,
+                'children' => []
+            ],
+            [
+                'menu_title' => 'admin::menus.shipping',
+                'menu_name' => 'shipping.*',
+                'menu_link' => 'shipping.index',
+                'menu_icon' => 'nav-icon fa fa-newspaper-o',
+                'actived' => '',
+                'section' => 'shipping',
+                'visiable' => false,
+                'children' => []
+            ]
+        ]
     ],
     [
         'menu_title' => 'admin::menus.role',

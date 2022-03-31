@@ -35,7 +35,7 @@ class SlideBarBootstrap4Presenter extends Presenter
     {
         $attributes = preg_replace('/class="(\S+)"/', 'class="$1 '.$this->getActiveState($item, ' active').'"', $item->getAttributes());
         return '<li class="nav-item">
-                <a href="' . $item->getUrl() . '" ' . $attributes . '>' . $item->getIcon() . ' <p>' . $item->title . '</p></a>
+                <a href="' . $item->getUrl() . '" ' . $attributes . '>' . $item->getIcon() . ' <p class="d-inline">' . $item->title . '</p></a>
             </li>' . PHP_EOL;
     }
 
@@ -82,11 +82,11 @@ class SlideBarBootstrap4Presenter extends Presenter
     public function getMenuWithDropDownWrapper($item)
     {
         return '<li class="nav-item dropdown' . $this->getActiveStateOnChild($item, ' active') . '">
-		          <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">
+		          <a href="#'.$item->attributes['id'].'" class="nav-link dropdown-toggle" data-toggle="collapse">
 					' . $item->getIcon() . ' ' . $item->title . '
 			      	<b class="caret"></b>
 			      </a>
-			      <ul class="dropdown-menu">
+			      <ul class="collapse list-unstyled pl-3" id="'.$item->attributes['id'].'">
 			      	' . $this->getChildMenuItems($item) . '
 			      </ul>
 		      	</li>'

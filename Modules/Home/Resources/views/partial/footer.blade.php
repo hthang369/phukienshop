@@ -4,13 +4,13 @@
         <div class="row">
           <div class="col-lg-3 col-md-6">
             <div class="footer-info">
-              <h3>{{$webName}}</h3>
-              <p> {{$webAddess}}<br>
-                <strong>Phone:</strong> {{ $webPhone }}<br>
-                <strong>Email:</strong> {{ $webEmail }}<br>
+              <h3>{{data_get($infoSettings, 'info.web_name')}}</h3>
+              <p> {{data_get($infoSettings, 'info.web_address')}}<br>
+                <strong>Phone:</strong> {{ data_get($infoSettings, 'info.web_phone') }}<br>
+                <strong>Email:</strong> {{ data_get($infoSettings, 'info.web_email') }}<br>
               </p>
               <div class="social-links mt-3">
-                {!! $footerSocial->text !!}
+                @widget('text_footer_social')
               </div>
             </div>
           </div>

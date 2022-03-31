@@ -8,6 +8,6 @@ class Common extends Facade
 {
     protected static function getFacadeAccessor()
     {
-        return 'common-helper';
+        return 'common-service';
     }
 }

@@ -5,7 +5,7 @@ namespace Modules\Admin\Providers;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\ServiceProvider;
 use Modules\Admin\Facades\Breadcrumb;
-use Modules\Admin\Services\MenuService;
+use Modules\Admin\Services\Menus\MenuService;
 use Vnnit\Core\Facades\Common;
 
 class ComposerServiceProvider extends ServiceProvider

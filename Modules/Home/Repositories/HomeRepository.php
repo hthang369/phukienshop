@@ -2,11 +2,13 @@
 
 namespace Modules\Home\Repositories;
 
+use App\Facades\Common;
 use Modules\Admin\Entities\CategoriesModel;
 use Modules\Admin\Entities\MenusModel;
 use Modules\Admin\Entities\PagesModel;
 use Modules\Admin\Entities\PostsModel;
 use Modules\Admin\Repositories\PostsRepository;
+use Modules\Admin\Repositories\ProductsRepository;
 use Modules\Admin\Repositories\SlidesRepository;
 use Modules\Home\Entities\HomeModel;
 use Modules\Home\Services\HomeServices;
@@ -24,31 +26,7 @@ class HomeRepository extends BaseRepository
         return HomeModel::class;
     }
 
-    public function show($id, $columns = [])
-    {
-        $menu = MenusModel::where('menu_link', $id)->first();
-        $results = [];
-        switch(data_get($menu, 'partial_table')) {
-            case 'page':
-                $data = PagesModel::find(data_get($menu, 'partial_id'));
-                $results = $data->toArray();
-                break;
-            case 'category':
-                $data = CategoriesModel::find(data_get($menu, 'partial_id'));
-                $results = $data->toArray();
-                $results['data_list'] = $this->getProductsData($data->id);
-                break;
-            case 'news':
-                $data = CategoriesModel::find(data_get($menu, 'partial_id'));
-                $results = $data->toArray();
-                $results['post_list'] = resolve(PostsRepository::class)->getAllDataByCategory($data->id, 'news')->toArray();
-                break;
-        }
-        return [
-            'view_name' => data_get($menu, 'menu_view'),
-            'data' => $results
-        ];
-    }
+    
 
     public function getAllSlide()
     {
@@ -60,15 +38,30 @@ class HomeRepository extends BaseRepository
         })->all();
     }
 
-    protected function getProductsData($category_id)
+    protected function getProductsData($category_id, $type)
     {
-        $results = resolve(PostsRepository::class)->getAllDataWithCategoryParent($category_id);
-        return $results->groupBy('category_id')->map(function($item) {
-            $categoryColumns = ['category_id', 'category_name', 'category_link', 'category_image'];
-            $categoryInfo = $item->first()->only($categoryColumns);
-            $categoryInfo['post_list'] = $this->generatePortfolio($item);
-            return $categoryInfo;
-        });
+        if ($type != 'product') {
+            $results = resolve(PostsRepository::class)->getAllDataWithCategoryParent($category_id);
+            return $results->groupBy('category_id')->map(function($item) {
+                $categoryColumns = ['category_id', 'category_name', 'category_link', 'category_image'];
+                $categoryInfo = $item->first()->only($categoryColumns);
+                $categoryInfo['post_list'] = $this->generatePortfolio($item);
+                return $categoryInfo;
+            });
+        } else {
+            $results = resolve(ProductsRepository::class)->getAllDataWithCategoryParent($category_id);
+            return $results->groupBy('category_id')->map(function($item) {
+                $categoryColumns = ['category_id', 'category_name', 'category_link', 'category_image'];
+                $categoryInfo = $item->first()->only($categoryColumns);
+                $categoryInfo['post_list'] = $this->generatePortfolio($item, 'product');
+                return $categoryInfo;
+            });
+        }
+    }
+
+    public function getPromotionProducts()
+    {
+        return $this->generatePortfolioProducts(resolve(ProductsRepository::class)->getDataByPromotion());
     }
 
     public function getHomeProducts()
@@ -96,8 +89,13 @@ class HomeRepository extends BaseRepository
         return ['data' => $this->generatePortfolio($data->items()), 'pagination' => $data->links()];
     }
 
-    protected function generatePortfolio($data)
+    protected function generatePortfolio($data, $type = 'post')
     {
-        return resolve(HomeServices::class)->generatePortfolio($data)->toArray();
+        return resolve(HomeServices::class)->generatePortfolio($data, $type)->toArray();
+    }
+
+    protected function generatePortfolioProducts($data)
+    {
+        return Common::generatePortfolioProducts($data)->toArray();
     }
 }

@@ -2,8 +2,10 @@
 
 namespace Modules\Home\Services;
 
+use App\Facades\Common;
 use Illuminate\Support\Collection;
 use Modules\Admin\Entities\MenusModel;
+use Modules\Admin\Enums\PromotionType;
 use Nwidart\Menus\Facades\Menu;
 
 class HomeServices
@@ -51,22 +53,23 @@ class HomeServices
         });
     }
 
-    public function generatePortfolio($results)
+    public function generatePortfolio($results, $type = 'post')
     {
         if (!($results instanceof Collection)) {
             $results = collect($results);
         }
-        return $results->map(function($item) {
+        return $results->map(function($item) use($type) {
             return [
-                'link' => route('page.show-detail', $item->post_link),
+                'link' => route('page.show-detail', data_get($item, "{$type}_link")),
                 'images' => [
-                    'src' => asset("storage/images/$item->post_image"),
-                    'name' => $item->post_image,
+                    'src' => asset("storage/images/".$item->{$type.'_image'}),
+                    'name' => $item->{$type.'_image'},
                     'class' => 'card-img-top'
                 ],
-                'title' => $item->post_title,
-                'excerpt' => $item->post_excerpt
+                'title' => $item->{$type.'_title'},
+                'excerpt' => $item->{$type.'_excerpt'}
             ];
         });
     }
+
 }
